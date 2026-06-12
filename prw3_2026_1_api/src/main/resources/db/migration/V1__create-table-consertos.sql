@@ -3,7 +3,7 @@ create table consertos(
     data_entrada varchar(20) not null,
     data_saida varchar(20),
     nome varchar(100) not null,
-    anos_experiencia int not null,
+    experiencia  varchar(50),
     marca varchar(100) not null,
     modelo varchar(100) not null,
     ano varchar(4) not null,

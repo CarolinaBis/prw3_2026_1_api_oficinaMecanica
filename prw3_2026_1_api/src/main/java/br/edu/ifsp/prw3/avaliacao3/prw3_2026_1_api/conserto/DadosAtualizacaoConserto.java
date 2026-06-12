@@ -12,5 +12,5 @@ public record DadosAtualizacaoConserto(
 
         String nomeMecanico,
 
-        Integer anosExperiencia
+        String anosExperiencia
 ) {}

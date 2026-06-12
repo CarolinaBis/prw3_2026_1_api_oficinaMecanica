@@ -14,4 +14,5 @@ public class Veiculo {
     private String modelo;
     private String ano;
     private String cor;
+
 }

@@ -1,10 +1,13 @@
 package br.edu.ifsp.prw3.avaliacao3.prw3_2026_1_api.conserto;
 
+import br.edu.ifsp.prw3.avaliacao3.prw3_2026_1_api.mecanico.DadosMecanico;
 import br.edu.ifsp.prw3.avaliacao3.prw3_2026_1_api.mecanico.Mecanico;
 import br.edu.ifsp.prw3.avaliacao3.prw3_2026_1_api.veiculo.Veiculo;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "consertos")
@@ -15,6 +18,9 @@ public class Conserto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true, updatable = false)
+    private final String uuid = UUID.randomUUID().toString();
 
     private String dataEntrada;
     private String dataSaida;
@@ -29,9 +35,10 @@ public class Conserto {
 
     public Conserto(DadosCadastroConserto dados) {
         this.dataEntrada = dados.dataEntrada();
-        this.dataSaida = dados.dataSaida();
-        this.mecanico = new Mecanico(dados.mecanico().nome(), dados.mecanico().anosExperiencia());
-        this.veiculo = new Veiculo(
+        this.dataSaida   = dados.dataSaida();
+
+        this.mecanico = new Mecanico(dados.mecanico());
+        this.veiculo  = new Veiculo(
                 dados.veiculo().marca(),
                 dados.veiculo().modelo(),
                 dados.veiculo().ano(),
@@ -48,6 +55,8 @@ public class Conserto {
         if (dados.dataSaida() != null) {
             this.dataSaida = dados.dataSaida();
         }
-        this.mecanico.atualizarInformacoes(dados.nomeMecanico(), dados.anosExperiencia());
+        this.mecanico.atualizarInformacoes(
+                new DadosMecanico(dados.nomeMecanico(), dados.anosExperiencia())
+        );
     }
 }
